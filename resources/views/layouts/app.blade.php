@@ -51,7 +51,7 @@
             >
                 <img src="https://i.pravatar.cc/40" class="rounded-full w-10 h-10" alt="User" />
                 <div class="ml-3 flex items-center space-x-2">
-                    <span x-show="!collapsed" class="text-sm font-medium text-gray-800">Brooklyn Alice</span>
+                    <span x-show="!collapsed" class="text-sm font-medium text-gray-800">{{ $user->first_name }} {{ $user->last_name }}s</span>
                 </div>
                 <svg
                     x-show="!collapsed"
@@ -78,10 +78,17 @@
                 <span x-show="!collapsed" class="ml-3">Settings</span>
                 </a>
 
-                <a href="#logout" class="flex items-center px-4 py-2 text-sm hover:bg-gray-50 w-full">
+                <a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  class="flex items-center px-4 py-2 text-sm hover:bg-gray-50 w-full">
                 <div class="w-6 h-6 rounded-full bg-gray-200 text-gray-800 font-semibold flex items-center justify-center text-xs">L</div>
                 <span x-show="!collapsed" class="ml-3">Logout</span>
                 </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                    @csrf
+                </form>
+
+                
+
+
             </div>
             </div>
 
@@ -147,6 +154,9 @@
                         </a>
                     </div>
                 </div>
+                
+
+                
 
                 <!-- Loans Accordion -->
                 <div x-data="{ open: false }" class="w-full">

@@ -14,18 +14,18 @@
         
         <!-- Login Form -->
         <div class="w-full md:w-1/2">
-            <form method="get" action="{{ route('dashboard') }}" class="space-y-6">
+            <form method="POST" action="{{ route('authenticate') }}" class="space-y-6">
                 @csrf
                 <h2 class="text-2xl font-bold text-center">Sign in</h2>
 
-                <!-- Email -->
+                <!-- Username -->
                 <div>
                     <label class="block text-sm font-medium mb-1" for="email">Username / Email</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                             <i class="fas fa-person text-md text-black px-3"></i>
                         </span>
-                        <input type="email" name="email" id="email" required
+                        <input type="text" name="login" id="username" required
                             class="pl-10 w-full rounded-md bg-gray-200 py-2 px-3 outline-none focus:ring-2 ring-blue-500"/>
                     </div>
                 </div>
