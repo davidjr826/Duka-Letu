@@ -84,20 +84,29 @@
 
         <div class="border-t mx-2 w-11/12"></div>
 
-        <!-- Navigation Section -->
-        <nav class="flex flex-col space-y-2 w-full px-2">
-            <template x-for="item in [
-                { icon: 'fa-dice-five', label: 'Dashboard' },
-                { icon: 'fa-bag-shopping', label: 'Available Products' },
-                { icon: 'fa-hand-holding-dollar', label: 'Sales' },
-                { icon: 'fa-cart-flatbed', label: 'Inventory' }
-            ]" :key="item.label">
-            <a href="#" class="flex items-center hover:bg-gray-100 p-3 rounded transition w-full"
-                :class="collapsed ? 'justify-center' : 'gap-3'">
-                <i :class="`fa-solid ${item.icon} text-2xl text-gray-700`"></i>
-                <span x-show="!collapsed" x-text="item.label"></span>
-            </a>
-            </template>
+        <!-- Scrollable Navigation Section -->
+        <div class="flex-1 overflow-y-auto w-full pt-4 space-y-2">
+            <nav class="flex flex-col space-y-2 w-full px-2">
+
+                <a href="#" class="flex items-center hover:bg-gray-100 p-3 rounded transition w-full" :class="collapsed ? 'justify-center' : 'gap-3'">
+                    <i class="fa-solid fa-dice-five text-2xl text-gray-700"></i>
+                    <span x-show="!collapsed">Dashboard</span>
+                </a>
+
+                <a href="{{ route('products') }}" class="flex items-center hover:bg-gray-100 p-3 rounded transition w-full" :class="collapsed ? 'justify-center' : 'gap-3'">
+                    <i class="fa-solid fa-bag-shopping text-2xl text-gray-700"></i>
+                    <span x-show="!collapsed">Available Products</span>
+                </a>
+
+                <a href="#" class="flex items-center hover:bg-gray-100 p-3 rounded transition w-full" :class="collapsed ? 'justify-center' : 'gap-3'">
+                    <i class="fa-solid fa-hand-holding-dollar text-2xl text-gray-700"></i>
+                    <span x-show="!collapsed">Sales</span>
+                </a>
+
+                <a href="#" class="flex items-center hover:bg-gray-100 p-3 rounded transition w-full" :class="collapsed ? 'justify-center' : 'gap-3'">
+                    <i class="fa-solid fa-cart-flatbed text-2xl text-gray-700"></i>
+                    <span x-show="!collapsed">Inventory</span>
+                </a>
 
             <!-- Reports Accordion -->
             <div x-data="{ open: false }" class="w-full">

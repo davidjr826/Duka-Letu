@@ -16,7 +16,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             @foreach([
                 ['label' => 'SALES (TSH)', 'value' => 2500, 'icon' => 'chart-line'],
-                ['label' => 'PRODUCTS', 'value' => 13270, 'icon' => 'shopping-cart'],
+                ['label' => 'PRODUCTS', 'value' => $productCount, 'icon' => 'shopping-cart'],
                 ['label' => 'INCOME (TSH)', 'value' => 13270, 'icon' => 'credit-card'],
                 ['label' => 'ORDERS', 'value' => 1324, 'icon' => 'receipt']
             ] as $card)
