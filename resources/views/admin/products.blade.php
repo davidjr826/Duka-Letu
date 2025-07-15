@@ -8,22 +8,19 @@
     <section>
         <div 
         x-data="{
-            products: [
-            { id: 1, name: 'Soap', buying: 1000, selling: 1200 },
-            { id: 2, name: 'Sugar', buying: 2300, selling: 2700 },
-            { id: 3, name: 'Tea', buying: 1500, selling: 1900 },
-            { id: 4, name: 'Milk', buying: 1200, selling: 1500 },
-            { id: 5, name: 'Bread', buying: 800, selling: 1000 }
-            ],
+            products: {{ Js::from($products) }},
             getProfit(item) {
-            return item.selling - item.buying;
+                return item.selling - item.buying;
             },
             getTotal(item) {
-            return this.getProfit(item) * 10;
+                return this.getProfit(item) * item.quantity;
             }
         }"
         class="bg-white p-4 rounded shadow-xl drop-shadow-sm mt-4 py-6"
         >
+            <!-- Debug output (remove after testing) -->
+            <div x-text="'Total products: ' + products.length" class="hidden"></div>
+            
             <!-- Filters -->
             <div class="flex justify-between items-center mb-4">
                 <p class="font-medium text-xl text-start">List Of Products</p>
@@ -54,24 +51,34 @@
                 <table class="min-w-full border text-xs text-left">
                     <thead class="bg-gray-200 text-gray-700 uppercase">
                         <tr>
-                        <th class="px-3 py-4 text-center border">ID</th>
-                        <th class="px-3 py-4 text-center border">Name</th>
-                        <th class="px-3 py-4 text-center border">Buying Price</th>
-                        <th class="px-3 py-4 text-center border">Selling Price</th>
-                        <th class="px-3 py-4 text-center border">Profit</th>
-                        <th class="px-3 py-4 text-center border">Total</th>
+                            <th class="px-3 py-4 text-center border">ID</th>
+                            <th class="px-3 py-4 text-center border">Name</th>
+                            <th class="px-3 py-4 text-center border">Buying Price</th>
+                            <th class="px-3 py-4 text-center border">Selling Price</th>
+                            <th class="px-3 py-4 text-center border">Profit</th>
+                            <th class="px-3 py-4 text-center border">Quantity</th>
+                            <th class="px-3 py-4 text-center border">Total Profit</th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-800">
+                        <template x-if="products.length === 0">
+                            <tr>
+                                <td colspan="7" class="px-3 py-4 text-center border text-red-500">
+                                    No products found
+                                </td>
+                            </tr>
+                        </template>
+                        
                         <template x-for="item in products" :key="item.id">
-                        <tr>
-                            <td class="px-3 py-4 text-center border" x-text="item.id"></td>
-                            <td class="px-3 py-4 text-center border" x-text="item.name"></td>
-                            <td class="px-3 py-4 text-center border" x-text="item.buying.toLocaleString()"></td>
-                            <td class="px-3 py-4 text-center border" x-text="item.selling.toLocaleString()"></td>
-                            <td class="px-3 py-4 text-center border" x-text="getProfit(item).toLocaleString()"></td>
-                            <td class="px-3 py-4 text-center border" x-text="getTotal(item).toLocaleString()"></td>
-                        </tr>
+                            <tr>
+                                <td class="px-3 py-4 text-center border" x-text="item.id"></td>
+                                <td class="px-3 py-4 text-center border" x-text="item.name"></td>
+                                <td class="px-3 py-4 text-center border" x-text="Number(item.buying).toLocaleString()"></td>
+                                <td class="px-3 py-4 text-center border" x-text="Number(item.selling).toLocaleString()"></td>
+                                <td class="px-3 py-4 text-center border" x-text="getProfit(item).toLocaleString()"></td>
+                                <td class="px-3 py-4 text-center border" x-text="item.quantity"></td>
+                                <td class="px-3 py-4 text-center border" x-text="getTotal(item).toLocaleString()"></td>
+                            </tr>
                         </template>
                     </tbody>
                 </table>

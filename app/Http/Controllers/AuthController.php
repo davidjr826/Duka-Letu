@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Flasher\Notyf\Laravel\Facade\Notyf;
 
 class AuthController extends Controller
 {
@@ -21,60 +22,37 @@ class AuthController extends Controller
     //  * Handle the authentication request for user to login.
      
     public function authenticate(Request $request)
-    {
-     $credentials = $request->validate([
-        'login' => 'required|string',  // This can be either username or email
+{
+    $credentials = $request->validate([
+        'login' => 'required|string',
         'password' => 'required|string',
-     ]);
+    ]);
 
-        // Determine if the input is email or username
-     $field = filter_var($credentials['login'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+    $field = filter_var($credentials['login'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
     
-        if (Auth::attempt([
-            $field => $credentials['login'],
-            'password' => $credentials['password'],
-            'is_active' => true
-        ], $request->boolean('remember'))) {
-            $request->session()->regenerate();
-            return redirect()->route('admin.dashboard');
-        }
-
-        else { 
-        // If the user is not active, throw an exception
-        if (Auth::attempt([$field => $credentials['login'], 'password' => $credentials['password']])) {
-            abort(403, 'Your account is inactive. Please contact support.');
-        }
-        // If authentication fails, throw a validation exception
-
-
-        throw ValidationException::withMessages([
-        'username' => __('auth.failed'),
-        'password' => __('auth.failed'),
-        ]);
+    if (Auth::attempt([
+        $field => $credentials['login'],
+        'password' => $credentials['password'],
+        'is_active' => true
+    ], $request->boolean('remember'))) {
+        $request->session()->regenerate();
+        // Add this line to set the success message
+        $request->session()->flash('login_success', 'Welcome back! Login successful.');
+        return redirect()->route('admin.dashboard');
     }
-
-    }
+    
+    // ... rest of your authentication logic ...
+}
 
     
 
-    public function logout(Request $request)
+   public function logout(Request $request)
     {
-    // Clear all authentication data
-    Auth::logout();
-    
-    // Invalidate the session
-    $request->session()->invalidate();
-    
-    // Regenerate CSRF token
-    $request->session()->regenerateToken();
-    
-    // Clear browser cache and prevent caching of protected pages
-    return redirect('/login')
-           ->withHeaders([
-               'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
-               'Pragma' => 'no-cache',
-               'Expires' => 'Fri, 01 Jan 1990 00:00:00 GMT',
-           ]);
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        Notyf::addSuccess('You have been logged out successfully.');
+        return redirect('/');
     }
 
     public function register(Request $request) {
