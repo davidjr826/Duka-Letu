@@ -104,7 +104,7 @@
                     <span x-show="!collapsed">Dashboard</span>
                 </a>
 
-                <a href="#" class="flex items-center hover:bg-gray-100 p-3 rounded transition w-full" :class="collapsed ? 'justify-center' : 'gap-3'">
+                <a href="{{ route('products') }}" class="flex items-center hover:bg-gray-100 p-3 rounded transition w-full" :class="collapsed ? 'justify-center' : 'gap-3'">
                     <i class="fa-solid fa-bag-shopping text-2xl text-gray-700"></i>
                     <span x-show="!collapsed">Available Products</span>
                 </a>
