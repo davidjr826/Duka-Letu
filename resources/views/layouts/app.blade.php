@@ -148,6 +148,42 @@
                     </div>
                 </div>
 
+                <!-- Loans Accordion -->
+                <div x-data="{ open: false }" class="w-full">
+                    <button
+                        @click="open = !open"
+                        class="w-full flex items-center hover:bg-gray-100 p-3 rounded transition cursor-pointer"
+                        :class="collapsed ? 'justify-center flex-col space-y-1' : 'gap-3'"
+                    >
+                        <i class="fa-solid fa-comments-dollar text-2xl text-gray-700"></i>
+                        <div x-show="!collapsed" class="flex items-center justify-between w-full">
+                            <span>Loans</span>
+                            <svg
+                                :class="open ? 'rotate-180' : ''"
+                                class="ml-auto w-4 h-4 text-gray-500 transition-transform"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </button>
+
+                    <div x-show="open" class="mt-1 space-y-1 w-full ">
+                        <a href="#sales-report" class="flex items-center px-4 py-2 hover:bg-gray-50 w-full pt-3">
+                            <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-xs">U</div>
+                            <span x-show="!collapsed" class="ml-3 text-sm">Student Loan</span>
+                        </a>
+
+                        <a href="#inventory-report" class="flex items-center px-4 py-2 hover:bg-gray-50 w-full">
+                            <div class="w-6 h-6 rounded-full bg-green-100 text-green-700 font-bold flex items-center justify-center text-xs">A</div>
+                            <span x-show="!collapsed" class="ml-3 text-sm">Staff Loan</span>
+                        </a>
+                    </div>
+                </div>
+
             </nav>
         </div>
     </aside>
