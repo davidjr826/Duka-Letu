@@ -41,28 +41,36 @@
     <div class="flex-1 overflow-y-auto space-y-4">
         <!-- Profile Accordion -->
         <div x-data="{ open: false }" class="w-full px-2">
-            <button
-            @click="open = !open"
-            class="w-full flex items-center"
-            :class="collapsed ? 'flex-col space-y-2 justify-center' : 'p-2 hover:bg-gray-100 rounded transition justify-start'">
-                <img src="/images/login.jpg" class="rounded-full w-10 h-10 object-cover" alt="User" />
-                <div class="ml-10 flex items-center space-x-2">
-                    <span x-show="!collapsed" class="text-md font-medium text-gray-800">
-                      {{$user->first_name}} {{$user->last_name}}
-                    </span>
-                </div>
-                <svg
-                    x-show="!collapsed"
-                    :class="open ? 'rotate-180' : ''"
-                    class="ml-auto w-4 h-4 text-gray-500 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                >
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-            </button>
+          <button
+              @click="open = !open"
+              class="w-full flex items-center gap-x-4.5 p-2 hover:bg-gray-100 rounded transition"
+              :class="collapsed ? 'flex-col space-y-2 justify-center' : 'justify-between'"
+          >
+              <!-- Image + Name wrapper -->
+              <div class="flex items-center">
+                  <img src="/images/login.jpg" class="rounded-full w-10 h-10 object-cover" alt="User" />
+
+                  <div x-show="!collapsed" class="ml-3.5">
+                      <span class="text-md font-medium text-gray-800">
+                          {{ $user->first_name }} {{ $user->last_name }}
+                      </span>
+                  </div>
+              </div>
+
+              <!-- Arrow icon -->
+              <svg
+                  x-show="!collapsed"
+                  :class="open ? 'rotate-180' : ''"
+                  class="w-4 h-4 text-gray-500 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+              >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+          </button>
+
 
             <!-- Profile Sub-links -->
             <div x-show="open" class="border-t mt-1 space-y-1 w-full">
