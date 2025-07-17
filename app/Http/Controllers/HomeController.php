@@ -21,11 +21,6 @@ class HomeController extends Controller
     $user = auth()->user();
 
     $productCount = Product::count(); // Count all products
-
-    
-    
-    
-
     return view('admin.dashboard', compact('user', 'productCount'));
 }
 

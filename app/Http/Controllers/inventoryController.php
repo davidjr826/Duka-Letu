@@ -8,6 +8,7 @@ class inventoryController extends Controller
 {
     //
     public function inventory(){
-        return view('admin.inventory');
+        $user = auth()->user();
+        return view('admin.inventory', compact('user'));
     }
 }
