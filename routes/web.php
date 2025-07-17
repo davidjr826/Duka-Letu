@@ -2,10 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\salesController;
+use App\Http\Controllers\sales_reportController;
+use App\Http\Controllers\inventory_reportController;
+use App\Http\Controllers\inventoryController;
+use App\Http\Controllers\student_loanController;
+use App\Http\Controllers\staff_loanController;
 use App\Http\Controllers\AuthController;
 
 // Public routes
-// Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Route::middleware('guest')->group(function () {
     Route::get('/', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
@@ -39,6 +44,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin/users/update/{id}', [HomeController::class, 'updateUser'])->name('users.update');
     Route::delete('/admin/users/delete/{id}', [HomeController::class, 'deleteUser'])->name('users.delete');
     Route::get('/admin/products', [HomeController::class, 'products'])->name('products');
+    Route::get('/admin/sales', [salesController::class, 'sales'])->name('sales');
+    Route::get('/admin/inventory', [inventoryController::class, 'inventory'])->name('inventory');
+    Route::get('/admin/sales_report', [sales_reportController::class, 'sales_report'])->name('sales_report');
+    Route::get('/admin/inventory_report', [inventory_reportController::class, 'inventory_report'])->name('inventory_report');
+    Route::get('/admin/staff_loan', [staff_loanController::class, 'staff_loan'])->name('staff_loan');
+    Route::get('/admin/student_loan', [student_loanController::class, 'student_loan'])->name('student_loan');
 });
 
 // Manager-only routes

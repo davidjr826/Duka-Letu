@@ -2,7 +2,7 @@
 @extends('layouts.preloader')
 
 @section('title', 'Dashboard')
-@section('page_title', 'Dashboard')
+@section('page_title', 'Products')
 
 @section('content')
     <section>
