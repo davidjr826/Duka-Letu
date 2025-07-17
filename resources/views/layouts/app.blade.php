@@ -48,7 +48,7 @@
           >
               <!-- Image + Name wrapper -->
               <div class="flex items-center">
-                  <img src="/images/login.jpg" class="rounded-full w-10 h-10 object-cover" alt="User" />
+                  <img src="/images/login.jpg" class="rounded-full w-10 h-10 object-cover" alt="user" />
 
                   <div x-show="!collapsed" class="ml-3.5">
                       <span class="text-md font-medium text-gray-800">
