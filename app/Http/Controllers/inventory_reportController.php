@@ -8,6 +8,7 @@ class inventory_reportController extends Controller
 {
     //
     public function inventory_report(){
-        return view('admin.inventory_report');
+        $user = auth()->user();
+        return view('admin.inventory_report', compact('user'));
     }
 }

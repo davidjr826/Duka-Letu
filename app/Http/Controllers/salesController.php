@@ -8,6 +8,7 @@ class salesController extends Controller
 {
     //
     public function sales(){
-        return view('admin.sales');
+        $user = auth()->user();
+        return view('admin.sales', compact('user'));
     }
 }
