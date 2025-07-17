@@ -45,10 +45,10 @@
             @click="open = !open"
             class="w-full flex items-center"
             :class="collapsed ? 'flex-col space-y-2 justify-center' : 'p-2 hover:bg-gray-100 rounded transition justify-start'">
-                <img src="/images/login.jpg" class="rounded-full w-10 h-10" alt="User" />
+                <img src="/images/login.jpg" class="rounded-full w-10 h-10 object-cover" alt="User" />
                 <div class="ml-10 flex items-center space-x-2">
-                    <span x-show="!collapsed" class="text-sm font-medium text-gray-800">
-                    {{ $user->first_name }} {{ $user->last_name }}
+                    <span x-show="!collapsed" class="text-md font-medium text-gray-800">
+                      {{$user->first_name}} {{$user->last_name}}
                     </span>
                 </div>
                 <svg
@@ -86,78 +86,92 @@
 
         <!-- Scrollable Navigation Section -->
         <div class="flex-1 overflow-y-auto w-full pt-4 space-y-2">
-            <nav class="flex flex-col space-y-2 w-full px-2">
+            <nav class="flex flex-col w-full px-2">
 
-                <a href="#" class="flex items-center hover:bg-gray-100 p-3 rounded transition w-full" :class="collapsed ? 'justify-center' : 'gap-3'">
-                    <i class="fa-solid fa-dice-five text-2xl text-gray-700"></i>
+                <a href="{{ route('dashboard') }}" class="flex items-center hover:bg-gray-100 p-3 rounded transition w-full" :class="collapsed ? 'justify-center' : 'gap-3'">
+                    <span>
+                      <img src='/images/dashboard.png' alt='dashboard' class='w-7 h-7' />
+                    </span>
                     <span x-show="!collapsed">Dashboard</span>
                 </a>
 
                 <a href="{{ route('products') }}" class="flex items-center hover:bg-gray-100 p-3 rounded transition w-full" :class="collapsed ? 'justify-center' : 'gap-3'">
-                    <i class="fa-solid fa-bag-shopping text-2xl text-gray-700"></i>
-                    <span x-show="!collapsed">Available Products</span>
+                    <span>
+                      <img src='/images/products.png' alt='products' class='w-7 h-7' />
+                    </span>
+                    <span x-show="!collapsed">Products</span>
                 </a>
 
-                <a href="#" class="flex items-center hover:bg-gray-100 p-3 rounded transition w-full" :class="collapsed ? 'justify-center' : 'gap-3'">
-                    <i class="fa-solid fa-hand-holding-dollar text-2xl text-gray-700"></i>
+                <a href="{{ route('sales') }}" class="flex items-center hover:bg-gray-100 p-3 rounded transition w-full" :class="collapsed ? 'justify-center' : 'gap-3'">
+                    <span>
+                      <img src='/images/sales.png' alt='sales' class='w-7 h-7' />
+                    </span>
                     <span x-show="!collapsed">Sales</span>
                 </a>
 
-                <a href="#" class="flex items-center hover:bg-gray-100 p-3 rounded transition w-full" :class="collapsed ? 'justify-center' : 'gap-3'">
-                    <i class="fa-solid fa-cart-flatbed text-2xl text-gray-700"></i>
+                <a href="{{ route('inventory') }}" class="flex items-center hover:bg-gray-100 p-3 rounded transition w-full" :class="collapsed ? 'justify-center' : 'gap-3'">
+                    <!-- <i class="fa-solid fa-cart-flatbed text-2xl text-gray-700"></i> -->
+                    <span>
+                        <img src='/images/inventory.png' alt='inventory' class='w-8 h-8' />
+                    </span>
                     <span x-show="!collapsed">Inventory</span>
                 </a>
 
-            <!-- Reports Accordion -->
-            <div x-data="{ open: false }" class="w-full">
-            <button
-                @click="open = !open"
-                class="w-full flex items-center hover:bg-gray-100 p-3 rounded transition cursor-pointer"
-                :class="collapsed ? 'justify-center flex-col space-y-1' : 'gap-3'"
-            >
-                <i class="fa-solid fa-laptop-file text-2xl text-gray-700"></i>
-                <div x-show="!collapsed" class="flex items-center justify-between w-full">
-                <span>Reports</span>
-                <svg :class="open ? 'rotate-180' : ''" class="ml-auto w-4 h-4 text-gray-500 transition-transform"
-                    fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
+                <!-- Reports Accordion -->
+                <div x-data="{ open: false }" class="w-full">
+                    <button
+                        @click="open = !open"
+                        class="w-full flex items-center hover:bg-gray-100 p-3 rounded transition cursor-pointer"
+                        :class="collapsed ? 'justify-center flex-col space-y-1' : 'gap-3'"
+                    >
+                        <!-- <i class="fa-solid fa-laptop-file text-2xl text-gray-700"></i> -->
+                        <span>
+                            <img src='/images/report.png' alt='report' class='w-7 h-7' />
+                        </span>
+                        <div x-show="!collapsed" class="flex items-center justify-between w-full">
+                        <span>Reports</span>
+                        <svg :class="open ? 'rotate-180' : ''" class="ml-auto w-4 h-4 text-gray-500 transition-transform"
+                            fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                        </div>
+                    </button>
+                    <div x-show="open" class="mt-1 space-y-1 w-full">
+                        <a href="{{ route('sales_report') }}" class="flex items-center px-4 py-2 hover:bg-gray-50 w-full pt-3">
+                          <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-xs">S</div>
+                          <span x-show="!collapsed" class="ml-3 text-sm">Sales Report</span>
+                        </a>
+                        <a href="{{ route('inventory_report') }}" class="flex items-center px-4 py-2 hover:bg-gray-50 w-full">
+                          <div class="w-6 h-6 rounded-full bg-green-100 text-green-700 font-bold flex items-center justify-center text-xs">I</div>
+                          <span x-show="!collapsed" class="ml-3 text-sm">Inventory Report</span>
+                        </a>
+                    </div>
                 </div>
-            </button>
-            <div x-show="open" class="mt-1 space-y-1 w-full">
-                <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-50 w-full pt-3">
-                <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-xs">S</div>
-                <span x-show="!collapsed" class="ml-3 text-sm">Sales Report</span>
-                </a>
-                <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-50 w-full">
-                <div class="w-6 h-6 rounded-full bg-green-100 text-green-700 font-bold flex items-center justify-center text-xs">I</div>
-                <span x-show="!collapsed" class="ml-3 text-sm">Inventory Report</span>
-                </a>
-            </div>
-        </div>
 
         <!-- Loans Accordion (Same logic as above) -->
         <div x-data="{ open: false }" class="w-full">
-          <button
+            <button
             @click="open = !open"
             class="w-full flex items-center hover:bg-gray-100 p-3 rounded transition cursor-pointer"
-            :class="collapsed ? 'justify-center flex-col space-y-1' : 'gap-3'"
-          >
-            <i class="fa-solid fa-comments-dollar text-2xl text-gray-700"></i>
-            <div x-show="!collapsed" class="flex items-center justify-between w-full">
-              <span>Loans</span>
-              <svg :class="open ? 'rotate-180' : ''" class="ml-auto w-4 h-4 text-gray-500 transition-transform"
+            :class="collapsed ? 'justify-center flex-col space-y-1' : 'gap-3'">
+                <!-- <i class="fa-solid fa-comments-dollar text-2xl text-gray-700"></i> -->
+                <span>
+                    <img src='/images/loans.png' alt='loans' class='w-7 h-7' />
+                </span>
+                <div x-show="!collapsed" class="flex items-center justify-between w-full">
+                    <span>Loans</span>
+                    <svg :class="open ? 'rotate-180' : ''" class="ml-auto w-4 h-4 text-gray-500 transition-transform"
                    fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </div>
           </button>
           <div x-show="open" class="mt-1 space-y-1 w-full">
-            <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-50 w-full pt-3">
+            <a href="{{ route('student_loan') }}" class="flex items-center px-4 py-2 hover:bg-gray-50 w-full pt-3">
               <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-xs">U</div>
               <span x-show="!collapsed" class="ml-3 text-sm">Student Loan</span>
             </a>
-            <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-50 w-full">
+            <a href="{{ route('staff_loan') }}" class="flex items-center px-4 py-2 hover:bg-gray-50 w-full">
               <div class="w-6 h-6 rounded-full bg-green-100 text-green-700 font-bold flex items-center justify-center text-xs">A</div>
               <span x-show="!collapsed" class="ml-3 text-sm">Staff Loan</span>
             </a>
@@ -182,9 +196,11 @@
             ]"
             class="fixed top-0 z-30 px-6 py-5 flex justify-between items-center transition-all duration-300"
     >
+      <!-- Topbar Section -->
       <div class="flex items-center space-x-3">
-        <h1 class="text-xl font-bold text-gray-800">Dashboard</h1>
+        <h1 class="text-xl font-bold text-gray-800">@yield('page_title')</h1>
       </div>
+
       <div class="flex items-center space-x-6">
         <input type="text" placeholder="Search here" class="border rounded-md focus:outline-none px-3 py-2 w-64" />
         <div class="flex items-center gap-4 text-lg">
@@ -196,7 +212,7 @@
     </header>
 
     <!-- Page Content -->
-    <main class="px-6 pt-24 pb-12 space-y-6">
+    <main class="px-6 pt-24 pb-12 space-y-6 bg-gray-50">
       @yield('content')
     </main>
   </div>
