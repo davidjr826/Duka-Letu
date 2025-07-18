@@ -33,7 +33,7 @@
     >
       <span x-show="!collapsed" class="text-xl font-bold">DUKA LETU</span>
       <button @click="collapsed = !collapsed" :class="collapsed ? 'p-2' : ''">
-        <i class="fa-solid fa-bars text-xl text-gray-700 cursor-pointer"></i>
+        <i class="fas fa-bars text-xl text-gray-700 cursor-pointer"></i>
       </button>
     </div>
 

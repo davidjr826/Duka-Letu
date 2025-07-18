@@ -15,26 +15,27 @@
     <section class='pt-10'>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             @foreach([
-                ['label' => 'SALES (TSH)', 'value' => 2500, 'icon' => 'chart-line'],
-                ['label' => 'PRODUCTS', 'value' => $productCount, 'icon' => 'shopping-cart'],
-                ['label' => 'INCOME (TSH)', 'value' => 13270, 'icon' => 'credit-card'],
-                ['label' => 'ORDERS', 'value' => 1324, 'icon' => 'receipt']
+                ['label' => 'SALES (TSH)', 'value' => 2500, 'icon' => 'chart-line', 'color' => 'blue'],
+                ['label' => 'PRODUCTS', 'value' => $productCount, 'icon' => 'shopping-cart', 'color' => 'green'],
+                ['label' => 'INCOME (TSH)', 'value' => 13270, 'icon' => 'credit-card', 'color' => 'blue'],
+                ['label' => 'ORDERS', 'value' => 1324, 'icon' => 'receipt', 'color' => 'green'],
             ] as $card)
-                <div class="flex flex-row justify-center items-center gap-x-6 bg-white rounded shadow-md border p-8">
-                    <div class="mb-2">
-                        <i class="fas fa-{{ $card['icon'] }} text-gray-500 text-4xl"></i>
+                @php
+                    $bgColor = "bg-{$card['color']}-100";
+                    $iconColor = "text-{$card['color']}-600";
+                @endphp
+                <div class="flex flex-row justify-center items-center gap-x-20 bg-white rounded shadow-md border p-6">
+                    <div class="p-3 rounded-md {{ $bgColor }}">
+                        <i class="fas fa-{{ $card['icon'] }} text-3xl {{ $iconColor }}"></i>
                     </div>
-                    <div class='flex flex-col justify-center items-start'>
-                        <div class="">
-                            <p class="text-sm text-gray-500">{{ $card['label'] }}</p>
-                        </div>
-                        <div>
-                            <p class="text-lg font-semibold">{{ $card['value'] }}</p>
-                        </div>
+                    <div class="flex flex-col justify-center items-start">
+                        <p class="text-sm text-gray-500">{{ $card['label'] }}</p>
+                        <p class="text-lg font-semibold">{{ $card['value'] }}</p>
                     </div>
                 </div>
             @endforeach
         </div>
+
 
 
         {{-- Charts --}}

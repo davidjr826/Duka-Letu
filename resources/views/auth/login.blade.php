@@ -6,6 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Duka Letu</title>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Flasher Notyf CSS -->
@@ -26,7 +33,7 @@
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
     <div class="bg-white p-6 md:p-12 shadow-xl rounded-xl flex flex-col gap-y-8 items-center max-w-5xl w-full">
-        <h1 class="text-4xl font-bold">Welcome to Duka Letu Chuo Chogo</h1>
+        <h1 class="text-4xl font-bold">Welcome to Duka Letu | Chuo Chogo</h1>
 
         <div class="bg-white rounded-xl flex flex-row gap-8 items-center w-full">
             <!-- Login Form -->
@@ -53,7 +60,7 @@
                         <label class="block text-sm font-medium mb-1" for="password">Password</label>
                         <div class="relative">
                             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                                <i class="fa-solid fa-lock text-gray-600"></i>
+                                <i class="fas fa-lock text-gray-600"></i>
                             </span>
                             <input type="password" name="password" id="password" 
                                 class="pl-10 pr-10 w-full rounded-md bg-gray-200 py-2.5 px-3 outline-none focus:ring-2 ring-blue-500"/>
@@ -65,7 +72,7 @@
                     </div>
 
                     <!-- Login Button -->
-                    <button type="submit" class="w-full bg-gray-600 text-white py-2.5 rounded-md hover:bg-gray-700">
+                    <button type="submit" class="w-full bg-black hover:text-black hover:bg-white hover:border-2 hover:border-black transition-all ease-out duration-500 text-white py-2.5 rounded-md cursor-pointer">
                         Login
                     </button>
 
