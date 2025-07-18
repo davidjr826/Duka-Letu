@@ -66,53 +66,92 @@
         <div style="box-shadow: 2px 2px 4px 4px rgba(0,0,0,0.1);" class='flex flex-col gap-y-4 rounded-md px-6 py-5 bg-white mt-12'>
             <div class="flex flex-row justify-between items-center gap-y-0.5 w-full">
                 <div class='w-full'><span>Inventory List</span></div>
+
+                <!-- Search input -->
                 <div class='w-full flex justify-center items-center'>
-                    <input type="text" placeholder="Search sales..." class="border rounded-l-md focus:outline-none px-3 py-2 w-full" />
+                    <input
+                        id="searchInput"
+                        type="text"
+                        placeholder="Search product..."
+                        class="border rounded-l-md focus:outline-none px-3 py-2 w-full"
+                        onkeyup="searchTable()"
+                    />
                     <i class="fas fa-search text-md border rounded-r-md p-3 cursor-pointer"></i>
                 </div>
-                <div class='w-full flex justify-end'><span class='bg-blue-600 rounded-md text-white w-fit px-3 py-0.5'>129 products</span></div>
+
+                <div class='w-full flex justify-end'>
+                    <span class='bg-blue-600 rounded-md text-white w-fit px-3 py-0.5'>129 products</span>
+                </div>
             </div>
 
             @php
                 $items = [
-                    ['id' => 1, 'name' => 'Pepsi'],
-                    ['id' => 2, 'name' => 'Kiwi'],
-                    ['id' => 3, 'name' => 'Biscuits'],
-                    ['id' => 4, 'name' => 'Pipi'],
-                    ['id' => 5, 'name' => 'Maji'],
-                    ['id' => 6, 'name' => 'Karamu'],
-                    ['id' => 7, 'name' => 'Penseli'],
-                    ['id' => 8, 'name' => 'Daftari'],
-                    ['id' => 9, 'name' => 'Wembe'],
-                    ['id' => 10, 'name' => 'Coca Cola'],
-                    ['id' => 11, 'name' => 'Mango Juice'],
-                    ['id' => 12, 'name' => 'Sabuni']
+                    ['id' => 1, 'name' => 'Pepsi', 'buying_price' => 1200, 'quantity' => 50],
+                    ['id' => 2, 'name' => 'Kiwi', 'buying_price' => 800, 'quantity' => 40],
+                    ['id' => 3, 'name' => 'Biscuits', 'buying_price' => 500, 'quantity' => 100],
+                    ['id' => 4, 'name' => 'Pipi', 'buying_price' => 300, 'quantity' => 200],
+                    ['id' => 5, 'name' => 'Maji', 'buying_price' => 600, 'quantity' => 80],
+                    ['id' => 6, 'name' => 'Karamu', 'buying_price' => 700, 'quantity' => 60],
+                    ['id' => 7, 'name' => 'Penseli', 'buying_price' => 250, 'quantity' => 120],
+                    ['id' => 8, 'name' => 'Daftari', 'buying_price' => 1000, 'quantity' => 70],
+                    ['id' => 9, 'name' => 'Wembe', 'buying_price' => 200, 'quantity' => 150],
+                    ['id' => 10, 'name' => 'Coca Cola', 'buying_price' => 1300, 'quantity' => 90],
+                    ['id' => 11, 'name' => 'Mango Juice', 'buying_price' => 1500, 'quantity' => 45],
+                    ['id' => 12, 'name' => 'Sabuni', 'buying_price' => 400, 'quantity' => 110],
                 ];
             @endphp
 
             <div class="pt-6 px-4">
-                <div class="overflow-x-auto shadow-md rounded-lg">
-                    <table class="min-w-full bg-white border border-gray-200">
-                        <thead class="bg-gray-100 text-gray-700 uppercase text-sm leading-normal">
+                <div class="shadow-md rounded-lg border border-gray-200">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-gray-100 text-gray-700 uppercase text-sm">
                             <tr>
-                                <th class="py-3 px-6 text-left border-b">ID</th>
-                                <th class="py-3 px-6 text-left border-b">Product Name</th>
+                                <th class="py-5 px-6 text-left border-b">ID</th>
+                                <th class="py-5 px-6 text-left border-b">Name</th>
+                                <th class="py-5 px-6 text-left border-b">Buying Price</th>
+                                <th class="py-5 px-6 text-left border-b">Quantity</th>
                             </tr>
                         </thead>
-                        <tbody class="text-gray-600 text-sm font-light">
-                            @foreach($items as $item)
-                                <tr class="border-b hover:bg-gray-50 transition duration-300">
-                                    <td class="py-3 px-6 border-r">{{ $item['id'] }}</td>
-                                    <td class="py-3 px-6">{{ $item['name'] }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
                     </table>
+
+                    <!-- Scrollable tbody -->
+                    <div class="max-h-[440px] overflow-y-auto">
+                        <table class="min-w-full bg-white">
+                            <tbody id="inventoryTable" class="text-gray-600 text-sm">
+                                @foreach($items as $item)
+                                    <tr class="border-b hover:bg-gray-50 transition">
+                                        <td class="py-4 px-6 border-r">{{ $item['id'] }}</td>
+                                        <td class="py-4 px-6 border-r">{{ $item['name'] }}</td>
+                                        <td class="py-4 px-6 border-r">{{ number_format($item['buying_price']) }}</td>
+                                        <td class="py-4 px-6">{{ $item['quantity'] }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-
-
         </div>
+
+        <!-- Search Script -->
+        <script>
+            function searchTable() {
+                const input = document.getElementById("searchInput");
+                const filter = input.value.toLowerCase();
+                const rows = document.querySelectorAll("#inventoryTable tr");
+
+                rows.forEach(row => {
+                    const nameCell = row.children[1];
+                    const name = nameCell.textContent.toLowerCase();
+
+                    if (name.includes(filter)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            }
+        </script>
 
     </section>
 @endsection
