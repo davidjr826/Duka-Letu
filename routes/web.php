@@ -45,6 +45,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/admin/users/delete/{id}', [HomeController::class, 'deleteUser'])->name('users.delete');
     Route::get('/admin/products', [HomeController::class, 'products'])->name('products');
     Route::get('/admin/sales', [salesController::class, 'sales'])->name('sales');
+    Route::get('/admin/new_sales', [salesController::class, 'new_sales'])->name('new_sales');
     Route::get('/admin/inventory', [inventoryController::class, 'inventory'])->name('inventory');
     Route::get('/admin/sales_report', [sales_reportController::class, 'sales_report'])->name('sales_report');
     Route::get('/admin/inventory_report', [inventory_reportController::class, 'inventory_report'])->name('inventory_report');
