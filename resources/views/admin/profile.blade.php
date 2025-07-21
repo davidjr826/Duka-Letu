@@ -5,9 +5,10 @@
 @section('page_title', 'Profile')
 
 @section('content')
-    <section class='flex flex-row justify-between items-start gap-x-6 w-full pt-6'>
+    <section class='flex flex-row justify-between items-start gap-x-6 w-full pt-4'>
 
-        <div style="box-shadow: 2px 2px 4px 4px rgba(0,0,0,0.1);" class="w-3/4 rounded-md p-6 flex flex-col gap-y-5 bg-white">
+        <!-- Basic information -->
+        <div style="box-shadow: 2px 2px 4px 4px rgba(0,0,0,0.1);" class="w-[71.5%] rounded-md p-6 flex flex-col gap-y-5 bg-white">
             <form class="flex flex-col gap-y-5">
 
                 <!-- save and cancel buttons -->
@@ -110,15 +111,20 @@
             </form>
         </div>
 
-        <!-- profile picture -->
-        <div style="box-shadow: 2px 2px 4px 4px rgba(0,0,0,0.1);" class="w-1/4 pt-10 px-6 rounded-md">
+        <!-- Fixed profile card -->
+        <div style="box-shadow: 2px 2px 4px 4px rgba(0,0,0,0.1);"
+            class="fixed top-28 mt-1.5 right-6 w-1/5 pt-10 px-6 bg-white overflow-y-auto rounded-l-md z-50 mr-6">
+
             <div class="w-full flex justify-center items-center">
-                <img src="/images/login.jpg" alt="my profile picture" class="rounded-full w-32 h-32 object-cover ring-8 ring-gray-400" />
+                <img src="/images/login.jpg" alt="my profile picture"
+                    class="rounded-full w-32 h-32 object-cover ring-8 ring-gray-400" />
             </div>
+
             <div class="w-full flex flex-col justify-start items-center gap-y-1 pt-6">
                 <span class="text-md font-medium">Agnella Aviator</span>
                 <span class="text-sm bg-gray-400 px-2 py-0.5">Shop Admin</span>
             </div>
+
             <div class="border border-gray-300 w-full mt-4"></div>
 
             <!-- contacts -->
@@ -136,7 +142,9 @@
             <!-- about me -->
             <div class="flex flex-col justify-start items-start gap-y-2 py-8">
                 <span class="text-xl font-medium">About Me</span>
-                <span class="text-sm text-justify">Dedicated shop administrator with a passion for smooth store operations, inventory accuracy, and excellent customer service. Focused on keeping everything organized and running efficiently</span>
+                <span class="text-sm text-justify">
+                    Dedicated shop administrator with a passion for smooth store operations, inventory accuracy, and excellent customer service. Focused on keeping everything organized and running efficiently.
+                </span>
             </div>
         </div>
     </section>

@@ -11,17 +11,17 @@
         <div class="flex justify-between items-start w-full p-4 rounded-md flex-col md:flex-row">
             <!-- Filter Section -->
             <div>
-                <span class="block font-semibold mb-2">Filter By</span>
+                <span class="block mb-2 text-lg font-medium">Filter By</span>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
 
                     <div class="flex flex-col">
-                        <label for="start_date" class="mb-1 text-sm">Start Date</label>
-                        <input type="date" id="start_date" name="start_date" class="h-10 px-3 rounded-md focus:outline-none border-2 border-black w-full" />
+                        <label for="start_date" class="mb-1 text-sm font-medium">Start Date</label>
+                        <input type="date" id="start_date" name="start_date" class="h-10 px-3 rounded-md focus:outline-none border-2 border-gray-400 w-full" />
                     </div>
 
                     <div class="flex flex-col">
-                        <label for="end_date" class="mb-1 text-sm">End Date</label>
-                        <input type="date" id="end_date" name="end_date" class="h-10 px-3 rounded-md focus:outline-none border-2 border-black w-full" />
+                        <label for="end_date" class="mb-1 text-sm font-medium">End Date</label>
+                        <input type="date" id="end_date" name="end_date" class="h-10 px-3 rounded-md focus:outline-none border-2 border-gray-400 w-full" />
                     </div>
 
                     <div class="flex items-end">
@@ -92,8 +92,8 @@
                     <span>Sales Records</span>
                 </div>
                 <div class='w-full flex justify-end items-center'>
-                    <input type="text" placeholder="Search sales..." class="border rounded-l-md focus:outline-none px-3 py-2 w-4/6" />
-                    <i class="fas fa-search text-md text-gray-800 border rounded-r-md p-3 cursor-pointer"></i>
+                    <input type="text" placeholder="Search sales..." class="border border-gray-400 rounded-l-md focus:outline-none px-3 py-2 w-4/6" />
+                    <i class="fas fa-search text-md text-gray-800 border border-gray-400 rounded-r-md p-3 cursor-pointer"></i>
                 </div>
             </div>
 

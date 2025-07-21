@@ -10,6 +10,7 @@ use App\Http\Controllers\student_loanController;
 use App\Http\Controllers\staff_loanController;
 use App\Http\Controllers\changesController;
 use App\Http\Controllers\profileController;
+use App\Http\Controllers\historyController;
 use App\Http\Controllers\AuthController;
 
 // Public routes
@@ -55,6 +56,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/loans/student_loan', [student_loanController::class, 'student_loan'])->name('student_loan');
     Route::get('/admin/loans/changes', [changesController::class, 'changes'])->name('changes');
     Route::get('/admin/profile', [profileController::class, 'profile'])->name('profile');
+    Route::get('/admin/history', [historyController::class, 'history'])->name('history');
 });
 
 // Manager-only routes
