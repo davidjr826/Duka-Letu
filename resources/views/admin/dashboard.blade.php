@@ -132,7 +132,7 @@
                 type: 'bar',
                 data: {
                     labels: ['M','T','W','T','F','S','S'],
-                    datasets: [{ label: 'Sales', data: [50, 20, 15, 10, 60, 25, 40], backgroundColor: '#22c55e' }]
+                    datasets: [{ label: 'Sales', data: [50, 20, 15, 10, 60, 25, 40], backgroundColor: '#5A5A5AFF' }]
                 },
                 options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
             });
@@ -141,7 +141,7 @@
                 type: 'line',
                 data: {
                     labels: ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-                    datasets: [{ label: 'Sales', data: [120,200,300,450,600,500,350,400,600], borderColor: '#22c55e', fill: false }]
+                    datasets: [{ label: 'Sales', data: [120,200,300,450,600,500,350,400,600], borderColor: '#5A5A5AFF', fill: false }]
                 },
                 options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
             });

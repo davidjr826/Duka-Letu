@@ -8,6 +8,8 @@ use App\Http\Controllers\inventory_reportController;
 use App\Http\Controllers\inventoryController;
 use App\Http\Controllers\student_loanController;
 use App\Http\Controllers\staff_loanController;
+use App\Http\Controllers\changesController;
+use App\Http\Controllers\profileController;
 use App\Http\Controllers\AuthController;
 
 // Public routes
@@ -49,8 +51,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/inventory', [inventoryController::class, 'inventory'])->name('inventory');
     Route::get('/admin/sales_report', [sales_reportController::class, 'sales_report'])->name('sales_report');
     Route::get('/admin/inventory_report', [inventory_reportController::class, 'inventory_report'])->name('inventory_report');
-    Route::get('/admin/staff_loan', [staff_loanController::class, 'staff_loan'])->name('staff_loan');
-    Route::get('/admin/student_loan', [student_loanController::class, 'student_loan'])->name('student_loan');
+    Route::get('/admin/loans/staff_loan', [staff_loanController::class, 'staff_loan'])->name('staff_loan');
+    Route::get('/admin/loans/student_loan', [student_loanController::class, 'student_loan'])->name('student_loan');
+    Route::get('/admin/loans/changes', [changesController::class, 'changes'])->name('changes');
+    Route::get('/admin/profile', [profileController::class, 'profile'])->name('profile');
 });
 
 // Manager-only routes
