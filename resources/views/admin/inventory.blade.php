@@ -19,7 +19,7 @@
             </div>
 
             <div class='flex flex-row justify-center items-center gap-x-3'>
-                <a href="#" >
+                <a href="{{route('history')}}" >
                     <button class='w-fit px-3 py-1.5 border rounded-md text-gray-500 text-center cursor-pointer'>
                         History
                     </button>
@@ -38,7 +38,7 @@
 
             <!-- All Items card -->
             <div style="box-shadow: 2px 2px 4px 4px rgba(0,0,0,0.1);" class="rounded-md px-6 py-5 bg-white flex flex-col justify-center items-center gap-y-0.5">
-                <span class='text-md font-semibold text-gray-900'>All Items</span>
+                <span class='text-md font-semibold text-gray-900'>All Products</span>
                 <span class='text-xs font-semibold text-gray-500'>123 Products</span>
             </div>
 
@@ -65,7 +65,7 @@
         <!-- Search inventory and product list -->
         <div style="box-shadow: 2px 2px 4px 4px rgba(0,0,0,0.1);" class='flex flex-col gap-y-4 rounded-md px-6 py-5 bg-white mt-12'>
             <div class="flex flex-row justify-between items-center gap-y-0.5 w-full">
-                <div class='text-lg font-semibold w-1/2'><span class='w-full'>Inventory List</span></div>
+                <div class='text-lg font-medium w-1/2'><span class='w-full'>Inventory List</span></div>
 
                 <!-- Search input -->
                 <div class='w-full flex justify-center items-center'>
@@ -80,7 +80,7 @@
                 </div>
 
                 <div class='flex justify-end w-1/2'>
-                    <span class='bg-blue-600 rounded-md text-white w-fit px-3 py-0.5'>129 products</span>
+                    <span class='bg-gray-500 text-white w-fit px-3 py-0.5 text-sm font-medium'>129 products</span>
                 </div>
             </div>
 
