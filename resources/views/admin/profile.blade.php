@@ -53,14 +53,6 @@
                     </div>
 
                     <div class="w-full flex flex-col justify-start items-start">
-                        <label for="re-type_password" class="text-md text-gray-400">Re-Type Password</label>
-                        <input type="password" name="re-type_password" placeholder="**********" class="w-full py-2 border-b border-gray-300 focus:outline-none focus:border-black text-sm" />
-                    </div>
-                </div>
-
-                <!-- Contacts and Gender -->
-                <div class="flex flex-row justify-between items-center gap-x-4">
-                    <div class="w-full flex flex-col justify-start items-start">
                         <label for="gender" class="text-md text-gray-400">Gender</label>
                         <select name="gender" class="w-full py-2 border-b border-gray-300 focus:outline-none focus:border-black">
                             <option disabled selected value="" class="text-sm text-gray-400">Select Gender</option>
@@ -69,7 +61,11 @@
                             <option value="Other">Other</option>
                         </select>
                     </div>
+                </div>
 
+                <!-- Contacts and Gender -->
+                <div class="flex flex-row justify-between items-center gap-x-4">
+                    
                     <div class="w-full flex flex-col justify-start items-start">
                         <label for="phone" class="text-md text-gray-400">Phone</label>
                         <input type="text" name="phone" placeholder="Enter Phone Number" class="w-full py-2 border-b border-gray-300 focus:outline-none focus:border-black text-sm" />
@@ -78,19 +74,6 @@
                     <div class="w-full flex flex-col justify-start items-start">
                         <label for="email" class="text-md text-gray-400">Email</label>
                         <input type="email" name="email" placeholder="Enter Email" class="w-full py-2 border-b border-gray-300 focus:outline-none focus:border-black text-sm" />
-                    </div>
-                </div>
-
-                <!-- Dates and Role -->
-                <div class="flex flex-row justify-between items-center gap-x-4">
-                    <div class="w-full flex flex-col justify-start items-start">
-                        <label for="birth_date" class="text-md text-gray-400">Birth Date</label>
-                        <input type="date" name="birth_date" class="w-full py-2 border-b border-gray-300 focus:outline-none focus:border-black text-sm" />
-                    </div>
-
-                    <div class="w-full flex flex-col justify-start items-start">
-                        <label for="joining_date" class="text-md text-gray-400">Joining Date</label>
-                        <input type="date" name="joining_date" class="w-full py-2 border-b border-gray-300 focus:outline-none focus:border-black text-sm" />
                     </div>
 
                     <div class="w-full flex flex-col justify-start items-start">
