@@ -13,7 +13,7 @@
 
 {{-- Cards --}}
     <section class='pt-10'>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
             @foreach([
                 ['label' => 'all products', 'value' => $productCount, 'icon' => 'shopping-cart', 'color' => 'gray'],
                 ['label' => 'total sales (TSH)', 'value' => 2500, 'icon' => 'chart-line', 'color' => 'gray'],
@@ -24,7 +24,7 @@
                     $bgColor = "bg-{$card['color']}-200";
                     $iconColor = "text-{$card['color']}-600";
                 @endphp
-                <div class="flex flex-row justify-between items-center bg-white rounded shadow-md border border-gray-400 px-6 py-8">
+                <div class="flex flex-col md:flex-row justify-between items-center bg-white rounded shadow-md border border-gray-400 px-6 py-8">
                     <div class="p-3 rounded-md {{ $bgColor }} border border-gray-400">
                         <i class="fas fa-{{ $card['icon'] }} text-3xl {{ $iconColor }}"></i>
                     </div>
@@ -77,7 +77,7 @@
         class="bg-white p-4 rounded shadow mt-16 border border-gray-400 py-6"
         >
         <!-- Filters -->
-        <div class="flex justify-between items-center mb-4">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-4">
             <p class="font-medium text-xl text-start">Top Sales Products</p>
 
             <div class="relative w-[200px]">
