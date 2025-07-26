@@ -1,8 +1,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-
-
 @extends('layouts.app')
 @extends('layouts.preloader')
 
@@ -16,11 +14,12 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
             @foreach([
                 ['label' => 'all products', 'value' => $productCount, 'icon' => 'shopping-cart', 'color' => 'gray'],
-                ['label' => 'total sales (TSH)', 'value' => 2500, 'icon' => 'chart-line', 'color' => 'gray'],
-                ['label' => 'total loans (TSH)', 'value' => 13270, 'icon' => 'credit-card', 'color' => 'gray'],
-                ['label' => 'total profit', 'value' => 1324, 'icon' => 'hand-holding-dollar', 'color' => 'gray'],
-            ] as $card)
+                ['label' => 'total sales (TSH)', 'value' => number_format($salesSummary->total_sales ?? 0), 'icon' => 'chart-line', 'color' => 'gray'],
+                ['label' => 'total loans (TSH)', 'value' => number_format($salesSummary->loans ?? 0), 'icon' => 'credit-card', 'color' => 'gray'],
+                ['label' => 'total profit', 'value' => number_format($salesSummary->profit ?? 0), 'icon' => 'hand-holding-dollar', 'color' => $salesSummary->profit < 0 ? 'red' : 'green'],
+        ] as $card)
                 @php
+                    $bgColor = "bg-{$card['color']}-200";
                     $bgColor = "bg-{$card['color']}-200";
                     $iconColor = "text-{$card['color']}-600";
                 @endphp
@@ -57,7 +56,7 @@
             </div>
         </div>
 
-        <!-- Top Sales Product Filter -->
+        {{-- Top Sales Product Filter --}}
         <div 
         x-data="{
             products: [
@@ -74,26 +73,26 @@
             return this.getProfit(item) * 10;
             }
         }"
-        class="bg-white p-4 rounded shadow mt-16 border border-gray-400 py-6"
+        class="bg-white p-4 rounded shadow mt-16 border py-6"
         >
         <!-- Filters -->
         <div class="flex flex-col md:flex-row justify-between items-center mb-4">
             <p class="font-medium text-xl text-start">Top Sales Products</p>
 
-            <div class="relative w-[200px]">
-                <!-- Date Input -->
-                <input 
-                type="month" 
-                class="peer bg-white border border-gray-300 text-gray-700 text-sm rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 w-full pl-10 pr-4 py-2"
-                />
-                
-                <!-- Calendar Icon -->
-                <div class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M6 2a1 1 0 00-1 1v1H5a2 2 0 00-2 2v1h14V6a2 2 0 00-2-2h-.002V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zM3 9v7a2 2 0 002 2h10a2 2 0 002-2V9H3z" />
-                </svg>
+                <div class="relative w-[200px]">
+                    <!-- Date Input -->
+                    <input 
+                    type="month" 
+                    class="peer bg-white border border-gray-300 text-gray-700 text-sm rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 w-full pl-10 pr-4 py-2"
+                    />
+                    
+                    <!-- Calendar Icon -->
+                    <div class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M6 2a1 1 0 00-1 1v1H5a2 2 0 00-2 2v1h14V6a2 2 0 00-2-2h-.002V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zM3 9v7a2 2 0 002 2h10a2 2 0 002-2V9H3z" />
+                    </svg>
+                    </div>
                 </div>
-            </div>
             </div>
 
             <!-- Table -->
@@ -101,7 +100,7 @@
                 <table class="min-w-full border text-xs text-left">
                     <thead class="bg-gray-100 text-gray-700 uppercase">
                         <tr>
-                        <th class="px-3 py-4 text-center border">s/n</th>
+                        <th class="px-3 py-4 text-center border">ID</th>
                         <th class="px-3 py-4 text-center border">Name</th>
                         <th class="px-3 py-4 text-center border">Buying Price</th>
                         <th class="px-3 py-4 text-center border">Selling Price</th>
@@ -110,16 +109,16 @@
                         </tr>
                     </thead>
                     <tbody class="text-gray-800">
-                        <template x-for="item in products" :key="item.id">
+                        @foreach($topSalesProducts as $index => $product)
                         <tr>
-                            <td class="px-3 py-4 text-center border" x-text="item.id"></td>
-                            <td class="px-3 py-4 text-center border" x-text="item.name"></td>
-                            <td class="px-3 py-4 text-center border" x-text="item.buying.toLocaleString()"></td>
-                            <td class="px-3 py-4 text-center border" x-text="item.selling.toLocaleString()"></td>
-                            <td class="px-3 py-4 text-center border" x-text="getProfit(item).toLocaleString()"></td>
-                            <td class="px-3 py-4 text-center border" x-text="getTotal(item).toLocaleString()"></td>
+                            <td class="px-3 py-4 text-center border">{{ $index + 1 }}</td>
+                            <td class="px-3 py-4 text-center border">{{ $product->product_name }}</td>
+                            <td class="px-3 py-4 text-center border">{{ number_format($product->buying_price) }}</td>
+                            <td class="px-3 py-4 text-center border">{{ number_format($product->selling_price) }}</td>
+                            <td class="px-3 py-4 text-center border">{{ number_format($product->selling_price - $product->buying_price) }}</td>
+                            <td class="px-3 py-4 text-center border">{{ number_format($product->total_sold ?? 0) }}</td>
                         </tr>
-                        </template>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -127,22 +126,55 @@
 
         {{-- Chart.js --}}
         <script>
+            // Prepare daily sales data
+            const dailyLabels = {!! json_encode($dailySales->pluck('day')) !!};
+            const dailyData = {!! json_encode($dailySales->pluck('total')) !!};
+
             const dailyChart = new Chart(document.getElementById('dailyChart'), {
                 type: 'bar',
                 data: {
-                    labels: ['M','T','W','T','F','S','S'],
-                    datasets: [{ label: 'Sales', data: [50, 20, 15, 10, 60, 25, 40], backgroundColor: '#5A5A5AFF' }]
+                    labels: dailyLabels,
+                    datasets: [{ 
+                        label: 'Sales', 
+                        data: dailyData, 
+                        backgroundColor: '#5A5A5AFF' 
+                    }]
                 },
-                options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+                options: { 
+                    plugins: { 
+                        legend: { display: false } 
+                    }, 
+                    scales: { 
+                        y: { beginAtZero: true } 
+                    } 
+                }
             });
+
+            // Prepare monthly sales data
+            const monthlyLabels = {!! json_encode($monthlySales->map(function($item) {
+                return Carbon\Carbon::create()->month($item->month)->format('M');
+            })) !!};
+            const monthlyData = {!! json_encode($monthlySales->pluck('total')) !!};
 
             const monthlyChart = new Chart(document.getElementById('monthlyChart'), {
                 type: 'line',
                 data: {
-                    labels: ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-                    datasets: [{ label: 'Sales', data: [120,200,300,450,600,500,350,400,600], borderColor: '#5A5A5AFF', fill: false }]
+                    labels: monthlyLabels,
+                    datasets: [{ 
+                        label: 'Sales', 
+                        data: monthlyData, 
+                        borderColor: '#5A5A5AFF', 
+                        fill: false 
+                    }]
                 },
-                options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+                options: { 
+                    plugins: { 
+                        legend: { display: false } 
+                    }, 
+                    scales: { 
+                        y: { beginAtZero: true } 
+                    } 
+                }
             });
         </script>
 
@@ -150,14 +182,3 @@
         <script>lucide.createIcons();</script>
     </section>
 @endsection
-
-
-
-
-
-
-
-
-
-
-

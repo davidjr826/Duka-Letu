@@ -62,18 +62,22 @@
         </button>
       </div>
 
-      <!-- Scrollable Sidebar Content -->
-      <div class="flex-1 overflow-y-auto space-y-4">
-        <!-- Profile Accordion -->
-        <div x-data="{ open: false }" class="w-full px-2">
-          <button
-            @click="open = !open"
-            class="w-full flex items-center gap-x-4.5 p-2 hover:bg-gray-100 rounded transition"
-            :class="collapsed && !mobileMenuOpen ? 'flex-col space-y-2 justify-center' : 'justify-between'"
-          >
-            <!-- Image + Name wrapper -->
-            <div class="flex items-center">
-              <img src="/images/login.jpg" class="rounded-full w-10 h-10 object-cover" alt="user" />
+    <!-- Scrollable Sidebar Content -->
+    <div class="flex-1 overflow-y-auto space-y-4">
+      <!-- Profile Accordion -->
+      <div x-data="{ open: false }" class="w-full px-2">
+        <button
+          @click="open = !open"
+          class="w-full flex items-center gap-x-4.5 p-2 hover:bg-gray-100 rounded transition"
+          :class="collapsed ? 'flex-col space-y-2 justify-center' : 'justify-between'"
+        >
+          <!-- Image + Name wrapper -->
+          <div class="flex items-center">
+            {{-- <img src="/images/login.jpg" class="rounded-full w-10 h-10 object-cover" alt="user" /> --}}
+            <img src="{{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('/images/login.jpg') }}" 
+            class="rounded-full w-10 h-10 object-cover" 
+            alt="Profile Picture"
+            onerror="this.src='{{ asset('/images/login.jpg') }}'">
 
               <div x-show="!collapsed || mobileMenuOpen" class="ml-3.5">
                 <span class="text-md font-medium text-gray-800">
