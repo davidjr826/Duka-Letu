@@ -89,6 +89,8 @@ class ProfileController extends Controller
     //         'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
     //     ]);
 
+    
+
    
 
     //     if ($request->hasFile('photo')) {
