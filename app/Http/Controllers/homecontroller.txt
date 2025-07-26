@@ -21,107 +21,123 @@ class HomeController extends Controller
         return view('auth.login');
     }
 
+   
 
+
+// public function adminDashboard()
+//     {
+//         $user = auth()->user();
+        
+//         // Redirect if not logged in
+//         if (!$user) {
+//             return redirect()->route('login');
+//         }
+        
+//         // Redirect if not admin
+//         if (!$user->isAdmin()) {
+//             Notyf::error('You do not have permission to access this page.');
+//             return redirect()->route('home');
+//         }
+
+//         // Today's date
+//         $today = Carbon::today()->toDateString();
+        
+//         // Sales Summary
+//         $salesSummary = $this->getSalesSummary($today);
+        
+//         // Low Stock Products
+//         $lowStockProducts = Inventory::with('product')
+//             ->where('quantity', '<', 5)
+//             ->orderBy('quantity')
+//             ->limit(5)
+//             ->get();
+        
+//         // Recent Sales
+//         $recentSales = Sale::withCount('items')
+//             ->orderBy('created_at', 'desc')
+//             ->limit(5)
+//             ->get();
+        
+//         // Product Count
+//         $productCount = Product::count();
+        
+//         // Monthly Sales Data (for charts)
+//         $monthlySales = $this->getMonthlySalesData();
+        
+//         // Daily Sales Data (for charts)
+//         $dailySales = $this->getDailySalesData();
+
+//         // **Top-Selling Products (Fixed GROUP BY issue)**
+//         $topSalesProducts = Product::select([
+//             'products.id',
+//             'products.name as product_name',
+//             'products.description',
+//             'products.cost_price as buying_price',
+//             'products.price as selling_price',
+//             'products.quantity as quantity_in_stock',
+//             DB::raw('SUM(sale_items.quantity) as total_sold') // Total sold count
+//         ])
+//         ->leftJoin('sale_items', 'products.id', '=', 'sale_items.product_id')
+//         ->groupBy([
+//             'products.id',
+//             'products.name',
+//             'products.description',
+//             'products.cost_price',
+//             'products.price',
+//             'products.quantity'
+//         ])
+//         ->orderBy('total_sold', 'DESC')
+//         ->limit(5) // Top 5 best-sellers
+//         ->get();
+
+//         return view('admin.dashboard', compact(
+//             'salesSummary',
+//             'lowStockProducts',
+//             'user',
+//             'recentSales',
+//             'productCount',
+//             'monthlySales',
+//             'dailySales',
+//             'topSalesProducts' // Pass top-selling products to view
+//         ));
+//     }
 
 public function adminDashboard()
-    {
-        $user = auth()->user();
-        
-        // Redirect if not logged in
-        if (!$user) {
-            return redirect()->route('login');
-        }
-        
-        // Redirect if not admin
-        if (!$user->isAdmin()) {
-            Notyf::error('You do not have permission to access this page.');
-            return redirect()->route('home');
-        }
-
-        // Today's date
-        $today = Carbon::today()->toDateString();
-        
-        // Sales Summary
-        $salesSummary = $this->getSalesSummary($today);
-        
-        // Low Stock Products
-        $lowStockProducts = Inventory::with('product')
-            ->where('quantity', '<', 5)
-            ->orderBy('quantity')
-            ->limit(5)
-            ->get();
-        
-        // Recent Sales
-        $recentSales = Sale::withCount('items')
-            ->orderBy('created_at', 'desc')
-            ->limit(5)
-            ->get();
-        
-        // Product Count
-        $productCount = Product::count();
-        
-        // Monthly Sales Data (for charts)
-        $monthlySales = $this->getMonthlySalesData();
-        
-        // Daily Sales Data (for charts)
-        $dailySales = $this->getDailySalesData();
-
-        // **Top-Selling Products (Fixed GROUP BY issue)**
-        $topSalesProducts = Product::select([
-            'products.id',
-            'products.name as product_name',
-            'products.description',
-            'products.cost_price as buying_price',
-            'products.price as selling_price',
-            'products.quantity as quantity_in_stock',
-            DB::raw('SUM(sale_items.quantity) as total_sold') // Total sold count
-        ])
-        ->leftJoin('sale_items', 'products.id', '=', 'sale_items.product_id')
-        ->groupBy([
-            'products.id',
-            'products.name',
-            'products.description',
-            'products.cost_price',
-            'products.price',
-            'products.quantity'
-        ])
-        ->orderBy('total_sold', 'DESC')
-        ->limit(5) // Top 5 best-sellers
-        ->get();
-
-        return view('admin.dashboard', compact(
-            'salesSummary',
-            'lowStockProducts',
-            'user',
-            'recentSales',
-            'productCount',
-            'monthlySales',
-            'dailySales',
-            'topSalesProducts' // Pass top-selling products to view
-        ));
+{
+    $user = auth()->user();
+    
+    // Redirect if not logged in or not admin
+    if (!$user || !$user->isAdmin()) {
+        Notyf::error(!$user ? 'Please login first.' : 'You do not have permission to access this page.');
+        return redirect()->route(!$user ? 'login' : 'home');
     }
 
+    // Today's date
+    $today = Carbon::today()->toDateString();
+    
+    // Sales Summary (for today)
+    $salesSummary = $this->getSalesSummary($today);
+    
+    // Product Count
+    $productCount = Product::count();
+    
+    // Monthly Sales Data (for charts) - last 12 months
+    $monthlySales = $this->getMonthlySalesData();
+    
+    // Daily Sales Data (for charts) - current week
+    $dailySales = $this->getDailySalesData();
 
-private function calculateWeeklyGrowth()
-{
-    $currentWeek = Sale::whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])
-        ->sum('total_amount');
-    
-    $lastWeek = Sale::whereBetween('created_at', [now()->subWeek()->startOfWeek(), now()->subWeek()->endOfWeek()])
-        ->sum('total_amount');
-    
-    return $lastWeek > 0 ? round(($currentWeek - $lastWeek) / $lastWeek * 100, 1) : 100;
-}
+    // Top-Selling Products (last 30 days)
+    $topSalesProducts = $this->getTopSellingProducts();
 
-private function calculateYearlyGrowth()
-{
-    $currentYear = Sale::whereYear('created_at', now()->year)
-        ->sum('total_amount');
-    
-    $lastYear = Sale::whereYear('created_at', now()->subYear()->year)
-        ->sum('total_amount');
-    
-    return $lastYear > 0 ? round(($currentYear - $lastYear) / $lastYear * 100, 1) : 100;
+    return view('admin.dashboard', compact(
+        'salesSummary',
+        'productCount',
+        'user',
+        'monthlySales',
+        'dailySales',
+        'topSalesProducts'
+    ));
 }
 
 
@@ -156,9 +172,38 @@ public function products()
 
 
 
+        //     private function getSalesSummary($date)
+        // {
+        //     $sales = Sale::with(['items.product'])
+        //         ->whereDate('created_at', $date)
+        //         ->get();
+
+        //     $summary = [
+        //         'total_sales' => 0,
+        //         'total_paid' => 0,
+        //         'transactions' => $sales->count(),
+        //         'total_cost' => 0,
+        //         'profit' => 0
+        //     ];
+
+        //     foreach ($sales as $sale) {
+        //         $summary['total_sales'] += $sale->total_amount;
+        //         $summary['total_paid'] += $sale->paid_amount;
+                
+        //         foreach ($sale->items as $item) {
+        //             if ($item->product) {
+        //                 $summary['total_cost'] += $item->quantity * $item->product->cost_price;
+        //             }
+        //         }
+        //     }
+
+        //     $summary['profit'] = $summary['total_sales'] - $summary['total_cost'];
+
+        //     return (object)$summary;
+        // }
 
 
-private function getSalesSummary($date)
+        private function getSalesSummary($date)
 {
     $sales = Sale::with(['items.product'])
         ->whereDate('created_at', $date)
@@ -169,29 +214,26 @@ private function getSalesSummary($date)
         'total_paid' => 0,
         'transactions' => $sales->count(),
         'total_cost' => 0,
-        'profit' => 0,
-        'loans' => 0
+        'profit' => 0
     ];
 
     foreach ($sales as $sale) {
         $summary['total_sales'] += $sale->total_amount;
         $summary['total_paid'] += $sale->paid_amount;
-        $summary['loans'] += max(0, $sale->total_amount - $sale->paid_amount);
         
         foreach ($sale->items as $item) {
-            $cost = $item->product 
-                ? $item->quantity * $item->product->cost_price
-                : $item->quantity * ($item->unit_price * 0.7); // Fallback
-            
-            $summary['total_cost'] += $cost;
+            if ($item->product) {
+                $summary['total_cost'] += $item->quantity * $item->product->cost_price;
+            }
         }
     }
 
     $summary['profit'] = $summary['total_sales'] - $summary['total_cost'];
-    
 
     return (object)$summary;
 }
+
+
 
 
 
