@@ -48,7 +48,11 @@
         >
           <!-- Image + Name wrapper -->
           <div class="flex items-center">
-            <img src="/images/login.jpg" class="rounded-full w-10 h-10 object-cover" alt="user" />
+            {{-- <img src="/images/login.jpg" class="rounded-full w-10 h-10 object-cover" alt="user" /> --}}
+            <img src="{{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('/images/login.jpg') }}" 
+            class="rounded-full w-10 h-10 object-cover" 
+            alt="Profile Picture"
+            onerror="this.src='{{ asset('/images/login.jpg') }}'">
 
             <div x-show="!collapsed" class="ml-3.5">
               <span class="text-md font-medium text-gray-800">

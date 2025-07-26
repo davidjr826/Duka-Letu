@@ -25,7 +25,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Authenticated routes (all roles)
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
-    Route::post('/profile/update', [HomeController::class, 'updateProfile'])->name('profile.update');
+    Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/picture', [ProfileController::class, 'updatePicture'])->name('profile.picture');
+    
     
     // Dashboard route that redirects based on role
     Route::get('/dashboard', function () {
@@ -56,7 +58,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/loans/student_loan', [student_loanController::class, 'student_loan'])->name('student_loan');
     Route::get('/admin/loans/changes', [changesController::class, 'changes'])->name('changes');
     Route::get('/admin/profile', [profileController::class, 'profile'])->name('profile');
-    Route::get('/admin/history', [historyController::class, 'history'])->name('history');
+    
+// ...existing code...
+Route::post('/add/products', [ProductController::class, 'store'])->name('products.store');
+// ...existing code...
+    Route::get('/admin/products/{id}', [App\Http\Controllers\ProductController::class, 'show'])->name('products.show');
+    Route::post('/admin/products', [App\Http\Controllers\ProductController::class, 'store'])->name('products.store');
 });
 
 // Manager-only routes
