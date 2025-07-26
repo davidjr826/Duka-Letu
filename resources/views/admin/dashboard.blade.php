@@ -25,13 +25,8 @@
                 @endphp
                 <div class="flex flex-row justify-between items-center bg-white rounded shadow-md border border-gray-400 px-6 py-8">
                     <div class="p-3 rounded-md {{ $bgColor }} border border-gray-400">
-                <div class="flex flex-row justify-between items-center bg-white rounded shadow-md border border-gray-400 px-6 py-8">
-                    <div class="p-3 rounded-md {{ $bgColor }} border border-gray-400">
                         <i class="fas fa-{{ $card['icon'] }} text-3xl {{ $iconColor }}"></i>
                     </div>
-                    <div class="flex flex-col justify-center items-center">
-                        <p class="text-sm text-gray-500 uppercase font-medium">{{ $card['label'] }}</p>
-                        <p class="text-lg font-semibold text-center">{{ $card['value'] }}</p>
                     <div class="flex flex-col justify-center items-center">
                         <p class="text-sm text-gray-500 uppercase font-medium">{{ $card['label'] }}</p>
                         <p class="text-lg font-semibold text-center">{{ $card['value'] }}</p>
@@ -41,12 +36,10 @@
         </div>
 
         <!-- simple visualization -->
-        <!-- simple visualization -->
         {{-- Charts --}}
         <div class='mt-10'>
             <h2 class='text-xl font-medium text-start'>Simple Visualization</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
-                <div class="bg-white p-8 rounded shadow border border-gray-400">
                 <div class="bg-white p-8 rounded shadow border border-gray-400">
                     <p class="font-semibold">Daily Sales</p>
                     <p class="text-sm text-gray-500">(10%) increase in today sales</p>
@@ -54,7 +47,6 @@
                     <p class="text-sm text-gray-700 mt-4">🕒 Updated 10min ago</p>
                 </div>
 
-                <div class="bg-white p-8 rounded shadow border border-gray-400">
                 <div class="bg-white p-8 rounded shadow border border-gray-400">
                     <p class="font-semibold">Monthly Sales</p>
                     <p class="text-sm text-gray-500">(10%) increase in today sales</p>
@@ -64,11 +56,28 @@
             </div>
         </div>
 
-        <!-- Top Sales Product Filter -->
-        <div class="bg-white p-4 rounded shadow mt-16 border border-gray-400 py-6">
-            <!-- Filters -->
-            <div class="flex justify-between items-center mb-4">
-                <p class="font-medium text-xl text-start">Top Sales Products..</p>
+        {{-- Top Sales Product Filter --}}
+        <div 
+        x-data="{
+            products: [
+            { id: 1, name: 'Soap', buying: 1000, selling: 1200 },
+            { id: 2, name: 'Sugar', buying: 2300, selling: 2700 },
+            { id: 3, name: 'Tea', buying: 1500, selling: 1900 },
+            { id: 4, name: 'Milk', buying: 1200, selling: 1500 },
+            { id: 5, name: 'Bread', buying: 800, selling: 1000 }
+            ],
+            getProfit(item) {
+            return item.selling - item.buying;
+            },
+            getTotal(item) {
+            return this.getProfit(item) * 10;
+            }
+        }"
+        class="bg-white p-4 rounded shadow mt-16 border py-6"
+        >
+        <!-- Filters -->
+        <div class="flex justify-between items-center mb-4">
+            <p class="font-medium text-xl text-start">Top Sales Products</p>
 
                 <div class="relative w-[200px]">
                     <!-- Date Input -->
@@ -91,12 +100,12 @@
                 <table class="min-w-full border text-xs text-left">
                     <thead class="bg-gray-100 text-gray-700 uppercase">
                         <tr>
-                            <th class="px-3 py-4 text-center border">s/n</th>
-                            <th class="px-3 py-4 text-center border">Name</th>
-                            <th class="px-3 py-4 text-center border">Buying Price</th>
-                            <th class="px-3 py-4 text-center border">Selling Price</th>
-                            <th class="px-3 py-4 text-center border">Profit</th>
-                            <th class="px-3 py-4 text-center border">Total Sold</th>
+                        <th class="px-3 py-4 text-center border">ID</th>
+                        <th class="px-3 py-4 text-center border">Name</th>
+                        <th class="px-3 py-4 text-center border">Buying Price</th>
+                        <th class="px-3 py-4 text-center border">Selling Price</th>
+                        <th class="px-3 py-4 text-center border">Profit</th>
+                        <th class="px-3 py-4 text-center border">Total</th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-800">

@@ -104,14 +104,7 @@
                             <th class="px-3 py-4 text-center border border-gray-400">Profit</th>
                             <th class="px-3 py-4 text-center border border-gray-400">Quantity</th>
                             <th class="px-3 py-4 text-center border border-gray-400">Total Profit</th>
-                            <th class="px-3 py-4 text-center border border-gray-400">s/n</th>
-                            <th class="px-3 py-4 text-center border border-gray-400">Product Name</th>
-                            <th class="px-3 py-4 text-center border border-gray-400">Category</th>
-                            <th class="px-3 py-4 text-center border border-gray-400">Buying Price</th>
-                            <th class="px-3 py-4 text-center border border-gray-400">Selling Price</th>
-                            <th class="px-3 py-4 text-center border border-gray-400">Profit</th>
-                            <th class="px-3 py-4 text-center border border-gray-400">Quantity</th>
-                            <th class="px-3 py-4 text-center border border-gray-400">Total Profit</th>
+                           
                         </tr>
                     </thead>
                     <tbody class="text-gray-800">
