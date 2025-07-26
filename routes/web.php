@@ -10,6 +10,7 @@ use App\Http\Controllers\student_loanController;
 use App\Http\Controllers\staff_loanController;
 use App\Http\Controllers\changesController;
 use App\Http\Controllers\profileController;
+use App\Http\Controllers\historyController;
 use App\Http\Controllers\AuthController;
 
 // Public routes

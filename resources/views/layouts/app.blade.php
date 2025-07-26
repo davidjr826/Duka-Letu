@@ -123,7 +123,7 @@
           <a href="{{ route('inventory') }}" class="flex items-center hover:bg-gray-100 p-3 rounded transition w-full" :class="collapsed ? 'justify-center' : 'gap-3'">
             <!-- <i class="fa-solid fa-cart-flatbed text-2xl text-gray-700"></i> -->
             <span>
-                <img src='/images/inventory.png' alt='inventory' class='w-6.5 h-6.5' />
+                <img src='/images/inventory.png' alt='inventory' class='w-8 h-7' />
             </span>
             <span x-show="!collapsed">Inventory</span>
           </a>

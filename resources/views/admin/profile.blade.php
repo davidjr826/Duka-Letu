@@ -6,6 +6,7 @@
 
 @section('content')
     <section class='flex flex-row justify-between items-start gap-x-6 w-full pt-4'>
+    <section class='flex flex-row justify-between items-start gap-x-6 w-full pt-4'>
 
         <!-- Basic information -->
         <div style="box-shadow: 2px 2px 4px 4px rgba(0,0,0,0.1);" class="w-[71.5%] rounded-md p-6 flex flex-col gap-y-5 bg-white">
@@ -105,15 +106,21 @@
         <div style="box-shadow: 2px 2px 4px 4px rgba(0,0,0,0.1);"
             class="fixed top-28 mt-1.5 right-6 w-1/5 pt-10 px-6 bg-white overflow-y-auto rounded-l-md z-50 mr-6">
 
+        <!-- Fixed profile card -->
+        <div style="box-shadow: 2px 2px 4px 4px rgba(0,0,0,0.1);"
+            class="fixed top-28 mt-1.5 right-6 w-1/5 pt-10 px-6 bg-white overflow-y-auto rounded-l-md z-50 mr-6">
+
             <div class="w-full flex justify-center items-center">
                 <img src="{{ $photo }}" alt="my profile picture"
                     class="rounded-full w-32 h-32 object-cover ring-8 ring-gray-400" />
             </div>
 
+
             <div class="w-full flex flex-col justify-start items-center gap-y-1 pt-6">
                 <span class="text-md font-medium">{{ $user->first_name }}  {{ $user->middle_name }}  {{ $user->last_name }}</span>
                 <span class="text-sm bg-gray-400 px-2 py-0.5">{{ $user->role ?? 'Shop Admin' }}</span>
             </div>
+
 
             <div class="border border-gray-300 w-full mt-4"></div>
 

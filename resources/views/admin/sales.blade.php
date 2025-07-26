@@ -10,7 +10,7 @@
         <form method="GET" action="{{ route('sales') }}" class="flex justify-between items-start w-full p-4 rounded-md flex-col md:flex-row">
             <!-- Filter Section -->
             <div>
-                <span class="block font-semibold mb-2">Filter By</span>
+                <span class="block mb-2 text-lg font-medium">Filter By</span>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     <div class="flex flex-col">
                         <label for="start_date" class="mb-1 text-sm">Start Date</label>

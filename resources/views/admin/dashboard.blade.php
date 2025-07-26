@@ -20,12 +20,18 @@
         ] as $card)
                 @php
                     $bgColor = "bg-{$card['color']}-200";
+                    $bgColor = "bg-{$card['color']}-200";
                     $iconColor = "text-{$card['color']}-600";
                 @endphp
                 <div class="flex flex-row justify-between items-center bg-white rounded shadow-md border border-gray-400 px-6 py-8">
                     <div class="p-3 rounded-md {{ $bgColor }} border border-gray-400">
+                <div class="flex flex-row justify-between items-center bg-white rounded shadow-md border border-gray-400 px-6 py-8">
+                    <div class="p-3 rounded-md {{ $bgColor }} border border-gray-400">
                         <i class="fas fa-{{ $card['icon'] }} text-3xl {{ $iconColor }}"></i>
                     </div>
+                    <div class="flex flex-col justify-center items-center">
+                        <p class="text-sm text-gray-500 uppercase font-medium">{{ $card['label'] }}</p>
+                        <p class="text-lg font-semibold text-center">{{ $card['value'] }}</p>
                     <div class="flex flex-col justify-center items-center">
                         <p class="text-sm text-gray-500 uppercase font-medium">{{ $card['label'] }}</p>
                         <p class="text-lg font-semibold text-center">{{ $card['value'] }}</p>
@@ -35,10 +41,12 @@
         </div>
 
         <!-- simple visualization -->
+        <!-- simple visualization -->
         {{-- Charts --}}
         <div class='mt-10'>
             <h2 class='text-xl font-medium text-start'>Simple Visualization</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
+                <div class="bg-white p-8 rounded shadow border border-gray-400">
                 <div class="bg-white p-8 rounded shadow border border-gray-400">
                     <p class="font-semibold">Daily Sales</p>
                     <p class="text-sm text-gray-500">(10%) increase in today sales</p>
@@ -46,6 +54,7 @@
                     <p class="text-sm text-gray-700 mt-4">🕒 Updated 10min ago</p>
                 </div>
 
+                <div class="bg-white p-8 rounded shadow border border-gray-400">
                 <div class="bg-white p-8 rounded shadow border border-gray-400">
                     <p class="font-semibold">Monthly Sales</p>
                     <p class="text-sm text-gray-500">(10%) increase in today sales</p>
