@@ -216,24 +216,6 @@
             </div>
           </nav>
         </div>
-
-        <!-- Bottom Icons Section -->
-        <div class="sticky bottom-0 bg-white border-t border-gray-200 w-full p-4">
-          <div class="flex justify-around items-center">
-            <a href="#" class="text-gray-600 hover:text-gray-900">
-              <i class="fa-solid fa-user text-xl"></i>
-            </a>
-            <a href="#" class="text-gray-600 hover:text-gray-900">
-              <i class="fa-solid fa-gear text-xl"></i>
-            </a>
-            <a href="#" class="text-gray-600 hover:text-gray-900">
-              <i class="fa-solid fa-bell text-xl"></i>
-            </a>
-            <a href="#" class="text-gray-600 hover:text-gray-900">
-              <i class="fa-solid fa-moon text-xl"></i>
-            </a>
-          </div>
-        </div>
       </div>
     </aside>
 
@@ -244,28 +226,55 @@
       'md:ml-20': collapsed,
       'md:ml-64': !collapsed
     }" class="flex-1 flex flex-col transition-all duration-300">
-      <!-- Topbar -->
+
+<!-- Topbar -->
 <header x-data="{ scrolled: false }"
     x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 10 })"
     :class="[
-      scrolled 
-        ? 'bg-white/20 backdrop-blur-md shadow-md rounded-lg' 
-        : 'bg-white'
+        scrolled 
+            ? 'bg-white/20 backdrop-blur-md shadow-md rounded-lg' 
+            : 'bg-white',
+        collapsed ? 'left-20' : 'left-64'
     ]"
-    class="fixed top-0 right-0 left-64 z-30 px-4 md:px-6 py-3 md:py-5 flex justify-between items-center transition-all duration-300"
+    class="fixed top-0 z-30 px-4 md:px-6 py-3 md:py-5 flex items-center justify-between transition-all duration-300"
+    :style="{
+        'width': collapsed ? 'calc(100% - 5rem)' : 'calc(100% - 16rem)',
+        'right': '0'
+    }"
 >
-    <!-- Page Title - Left aligned -->
-    <h1 class="text-lg md:text-xl font-bold text-gray-800 hidden md:block">
+    <!-- Page Title -->
+    <h1 class="text-lg md:text-xl font-bold text-gray-800 mr-4 truncate max-w-[180px] md:max-w-none">
         @yield('page_title')
     </h1>
 
-    <!-- Search Bar - Right aligned with proper spacing -->
-    <div class="ml-auto"> <!-- Changed to ml-auto for proper right alignment -->
-        <input 
-            type="text" 
-            placeholder="Search here" 
-            class="border rounded-md focus:outline-none px-3 py-2 w-full md:w-64 text-sm md:text-base" 
-        />
+    <!-- Search and Icons Container -->
+    <div class="flex items-center space-x-4">
+        <!-- Search Bar - Collapses to icon when sidebar is collapsed -->
+        <div class="relative" :class="collapsed ? 'w-10 overflow-hidden' : 'w-64'">
+            <input 
+                type="text" 
+                placeholder="Search here" 
+                class="border rounded-md focus:outline-none px-3 py-2 w-full text-sm md:text-base transition-all duration-300"
+                :class="collapsed ? 'opacity-0' : 'opacity-100'"
+            >
+            <i class="fas fa-search absolute right-3 top-3 text-gray-400 pointer-events-none"></i>
+        </div>
+
+        <!-- Icons -->
+        <div class="flex items-center space-x-4 md:space-x-6">
+            <a href="#" class="text-gray-600 hover:text-gray-900">
+                <i class="fa-solid fa-user text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-600 hover:text-gray-900">
+                <i class="fa-solid fa-gear text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-600 hover:text-gray-900 hidden md:block">
+                <i class="fa-solid fa-bell text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-600 hover:text-gray-900 hidden md:block">
+                <i class="fa-solid fa-moon text-xl"></i>
+            </a>
+        </div>
     </div>
 </header>
 
