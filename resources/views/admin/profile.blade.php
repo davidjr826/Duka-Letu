@@ -111,9 +111,38 @@
             class="fixed top-28 mt-1.5 right-6 w-1/5 pt-10 px-6 bg-white overflow-y-auto rounded-l-md z-50 mr-6">
 
             <div class="w-full flex justify-center items-center">
-                <img src="{{ $photo }}" alt="my profile picture"
-                    class="rounded-full w-32 h-32 object-cover ring-8 ring-gray-400" />
-            </div>
+    <form action="{{ route('profile.picture') }}" method="POST" enctype="multipart/form-data" class="relative">
+        @csrf
+        @method('PUT') <!-- Use PUT method for updates -->
+        
+        <!-- Display the current profile photo -->
+        <img src="{{ auth()->user()->photo ? Storage::url(auth()->user()->photo) : $photo }}" 
+             alt="Profile picture"
+             class="rounded-full w-32 h-32 object-cover ring-8 ring-gray-400" />
+        
+        <!-- File input hidden by default -->
+        <input type="file" name="photo" id="photo" class="hidden" onchange="this.form.submit()">
+        
+        <!-- Edit pen icon that triggers the file input -->
+        <label for="photo" class="absolute bottom-0 right-0 bg-gray-400 rounded-full p-2 cursor-pointer hover:bg-gray-500 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+            </svg>
+        </label>
+    </form>
+</div>
+
+<!-- Display success/error messages -->
+@if(session('success'))
+    <div class="mt-4 text-center text-green-600">
+        {{ session('success') }}
+    </div>
+@endif
+@if(session('error'))
+    <div class="mt-4 text-center text-red-600">
+        {{ session('error') }}
+    </div>
+@endif
 
 
             <div class="w-full flex flex-col justify-start items-center gap-y-1 pt-6">

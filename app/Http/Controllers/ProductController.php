@@ -10,46 +10,9 @@ class ProductController extends Controller
 {
 
 
-// public function index()
-// {
-
-//     $user = auth()->user();
-    
-//     $products = Product::select([
-//         'id',
-//         'name as product_name',
-//         'description',
-//         'cost_price as buying_price',
-//         'price as selling_price',
-//         'quantity as quantity_in_stock'
-//     ])->get();
-
-//     return view('admin.products', compact('products')  );
-// }
-
-// public function index()
-// {
-//     $user = auth()->user();
-    
-//     $products = Product::with('category') // Eager load the category relationship
-//         ->select([
-//             'id',
-//             'name as product_name',
-//             'description',
-//             'cost_price as buying_price',
-//             'price as selling_price',
-//             'quantity as quantity_in_stock',
-//             'category_id' // Include category_id in the select
-//         ])->get();
-
-//     $categories = Category::all(); // Fetch all categories
-
-//     return view('admin.products', compact('products', 'categories'));
-// }
-
-
 public function index()
 {
+    
     $products = Product::with('category') // Eager load the category relationship
         ->select([
             'id',

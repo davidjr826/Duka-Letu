@@ -17,7 +17,7 @@
                 ['label' => 'total sales (TSH)', 'value' => number_format($salesSummary->total_sales ?? 0), 'icon' => 'chart-line', 'color' => 'gray'],
                 ['label' => 'total loans (TSH)', 'value' => number_format($salesSummary->loans ?? 0), 'icon' => 'credit-card', 'color' => 'gray'],
                 ['label' => 'total profit', 'value' => number_format($salesSummary->profit ?? 0), 'icon' => 'hand-holding-dollar', 'color' => $salesSummary->profit < 0 ? 'red' : 'green'],
-        ] as $card)
+            ] as $card)
                 @php
                     $bgColor = "bg-{$card['color']}-200";
                     $bgColor = "bg-{$card['color']}-200";

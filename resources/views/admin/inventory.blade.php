@@ -19,7 +19,8 @@
             </div>
 
             <div class='flex flex-row justify-center items-center gap-x-3'>
-                <a href="{{route('history')}}" >
+                <a href="#" >
+                    {{-- {{route('history')}} --}}
                     <button class='w-fit px-3 py-1.5 border rounded-md text-gray-500 text-center cursor-pointer'>
                         History
                     </button>

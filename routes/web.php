@@ -26,7 +26,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
     Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
-    Route::post('/picture', [ProfileController::class, 'updatePicture'])->name('profile.picture');
+    Route::put('/picture', [ProfileController::class, 'updatePicture'])->name('profile.picture');
     
     
     // Dashboard route that redirects based on role

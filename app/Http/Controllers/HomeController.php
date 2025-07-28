@@ -158,6 +158,42 @@ public function products()
 
 
 
+// private function getSalesSummary($date)
+// {
+//     $sales = Sale::with(['items.product'])
+//         ->whereDate('created_at', $date)
+//         ->get();
+
+//     $summary = [
+//         'total_sales' => 0,
+//         'total_paid' => 0,
+//         'transactions' => $sales->count(),
+//         'total_cost' => 0,
+//         'profit' => 0,
+//         'loans' => 0
+//     ];
+
+//     foreach ($sales as $sale) {
+//         $summary['total_sales'] += $sale->total_amount;
+//         $summary['total_paid'] += $sale->paid_amount;
+//         $summary['loans'] += max(0, $sale->total_amount - $sale->paid_amount);
+        
+//         foreach ($sale->items as $item) {
+//             $cost = $item->product 
+//                 ? $item->quantity * $item->product->cost_price
+//                 : $item->quantity * ($item->unit_price * 0.7); // Fallback
+            
+//             $summary['total_cost'] += $cost;
+//         }
+//     }
+
+//     $summary['profit'] = $summary['total_sales'] - $summary['total_cost'];
+    
+
+//     return (object)$summary;
+// }
+
+
 private function getSalesSummary($date)
 {
     $sales = Sale::with(['items.product'])
@@ -170,7 +206,8 @@ private function getSalesSummary($date)
         'transactions' => $sales->count(),
         'total_cost' => 0,
         'profit' => 0,
-        'loans' => 0
+        'loans' => 0,
+        'items_sold' => 0
     ];
 
     foreach ($sales as $sale) {
@@ -179,6 +216,8 @@ private function getSalesSummary($date)
         $summary['loans'] += max(0, $sale->total_amount - $sale->paid_amount);
         
         foreach ($sale->items as $item) {
+            $summary['items_sold'] += $item->quantity;
+            
             $cost = $item->product 
                 ? $item->quantity * $item->product->cost_price
                 : $item->quantity * ($item->unit_price * 0.7); // Fallback
@@ -189,7 +228,6 @@ private function getSalesSummary($date)
 
     $summary['profit'] = $summary['total_sales'] - $summary['total_cost'];
     
-
     return (object)$summary;
 }
 
