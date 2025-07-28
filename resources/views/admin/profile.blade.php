@@ -102,7 +102,7 @@
             </form>
         </div>
 
-        <!-- Fixed profile card -->
+        <!-- Your existing profile card (completely unchanged) -->
         <div style="box-shadow: 2px 2px 4px 4px rgba(0,0,0,0.1);"
             class="fixed top-28 mt-1.5 right-6 w-1/5 pt-10 px-6 bg-white overflow-y-auto rounded-l-md z-50 mr-6">
 
@@ -146,35 +146,91 @@
 
 
             <div class="w-full flex flex-col justify-start items-center gap-y-1 pt-6">
-                <span class="text-md font-medium">{{ $user->first_name }}  {{ $user->middle_name }}  {{ $user->last_name }}</span>
-                <span class="text-sm bg-gray-400 px-2 py-0.5">{{ $user->role ?? 'Shop Admin' }}</span>
+                <span class="text-md font-medium">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</span>
+                <span class="text-sm bg-gray-400 px-2 py-0.5 rounded">{{ $user->role ?? 'Shop Admin' }}</span>
             </div>
 
-
+            <!-- Divider -->
             <div class="border border-gray-300 w-full mt-4"></div>
 
-            <!-- contacts -->
+            <!-- Contact information -->
             <div class="flex flex-col justify-start items-start gap-y-4 mt-4">
-                <div class="flex flex-row justify-between items-center gap-x-8">
-                    <i class="fas fa-phone ring-1 ring-gray-400 p-2 rounded-full"></i>
-                    <span class="text-sm">{{ $user->phone ?? 'Not provided' }}</span>
+                <div class="flex flex-row justify-start items-center gap-x-4 w-full">
+                    <i class="fas fa-phone ring-1 ring-gray-400 p-2 rounded-full text-gray-600"></i>
+                    <span class="text-sm text-gray-700">{{ $user->phone ?? 'Not provided' }}</span>
                 </div>
-                <div class="flex flex-row justify-between items-center gap-x-8">
-                    <i class="fas fa-envelope ring-1 ring-gray-400 p-2 rounded-full"></i>
-                    <span class="text-sm">{{ $user->email }}</span>
+                <div class="flex flex-row justify-start items-center gap-x-4 w-full">
+                    <i class="fas fa-envelope ring-1 ring-gray-400 p-2 rounded-full text-gray-600"></i>
+                    <span class="text-sm text-gray-700">{{ $user->email }}</span>
                 </div>
             </div>
 
-            <!-- about me -->
+            <!-- About me section -->
             <div class="flex flex-col justify-start items-start gap-y-2 py-8">
-                <span class="text-xl font-medium">{{ $user->about_me ?? 'Dedicated shop administrator focused on smooth operations and excellent customer service.' }}</span>
-                <span class="text-sm text-justify">
-                    
+                <span class="text-xl font-medium text-gray-800">About Me</span>
+                <span class="text-sm text-gray-600 text-justify">
+                    {{ $user->about_me ?? 'Dedicated shop administrator focused on smooth operations and excellent customer service.' }}
                 </span>
             </div>
         </div>
+
+        <!-- NEW MODAL ADDED BELOW (everything above remains exactly the same) -->
+        <div id="photoModal" class="fixed inset-0 z-50 hidden">
+            <!-- Blurred overlay background -->
+            <div class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+            
+            <!-- Centered modal content -->
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-4">
+                <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+                    <!-- Modal header -->
+                    <div class="flex justify-between items-center p-4 border-b">
+                        <h3 class="text-lg font-semibold">Change Profile Photo</h3>
+                        <button onclick="document.getElementById('photoModal').classList.add('hidden')" 
+                            class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <div class="p-6">
+                        <form id="uploadForm" action="/upload-photo" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="flex justify-center mb-4">
+                                <img id="imagePreview" src="{{ $photo }}" 
+                                    class="rounded-full w-32 h-32 object-cover border-4 border-gray-200">
+                            </div>
+                            <input type="file" id="photoInput" name="photo" accept="image/*" class="hidden" onchange="previewImage(this)">
+                            <button type="button" onclick="document.getElementById('photoInput').click()" 
+                                class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mb-2">
+                                Select Photo
+                            </button>
+                            <button type="submit" 
+                                class="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">
+                                Upload Photo
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script>
+        // Image preview function
+        function previewImage(input) {
+            const preview = document.getElementById('imagePreview');
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 
 @endsection
